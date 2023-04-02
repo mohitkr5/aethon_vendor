@@ -1,0 +1,17 @@
+.inputField {
+  border: 1px solid lightgrey;
+  padding: 1.5%;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.imagePreview {
+  margin-top: 10px;
+  width: 100%;
+  padding: 1%;
+  border: 1px solid lightgrey;
+}
+
+.imagePreview > p {
+  font-size: 14px;
+}
