@@ -79,7 +79,7 @@ export default function SidebarLayout({ children, pageTitle }) {
       ) : (
         <>
           <Head>
-            <title>AethonWorld</title>
+            <title>Aethon Vendor Dashboard</title>
             <meta name="description" content="Aethon Vendor Application" />
             {/* <meta name="keywords" content={keywords} /> */}
           </Head>
