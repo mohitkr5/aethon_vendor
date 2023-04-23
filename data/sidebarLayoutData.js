@@ -18,48 +18,6 @@ import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 
 
 export const sidebarElements = [
-  // {
-  //   name: "Employees & Admins",
-  //   icon: <TextSnippetIcon />,
-  //   options: [
-  //     {
-  //       id: nanoid(15),
-  //       title: "Manage Employees",
-  //       icon: <BadgeIcon />,
-  //       redirect: "/admin/employees",
-  //     },
-  //     {
-  //       id: nanoid(15),
-  //       title: "Add Employee",
-  //       icon: <AddIcon />,
-  //       redirect: "/admin/employees/add",
-  //     },
-  //   ],
-  // },
-  // {
-  //   name: "Customers",
-  //   icon: <TextSnippetIcon />,
-  //   options: [
-  //     {
-  //       id: nanoid(15),
-  //       title: "Manage Customers",
-  //       icon: <PersonIcon />,
-  //       redirect: "/admin/users",
-  //     },
-  //     {
-  //       id: nanoid(15),
-  //       title: "Manage State & Cities",
-  //       icon: <PersonIcon />,
-  //       redirect: "/admin/statecity",
-  //     },
-  //     {
-  //       id: nanoid(15),
-  //       title: "Contact Requests",
-  //       icon: <PersonIcon />,
-  //       redirect: "/admin/users/contactrequests",
-  //     },
-  //   ],
-  // },
   {
     name: "Manage",
     icon: <TextSnippetIcon />,
@@ -76,12 +34,6 @@ export const sidebarElements = [
         icon: <CategoryIcon />,
         redirect: "/subcategories",
       },
-      // {
-      //   id: nanoid(15),
-      //   title: "Manage Brands",
-      //   icon: <BrandingWatermarkIcon />,
-      //   redirect: "/brands",
-      // },
       {
         id: nanoid(15),
         title: "Manage Size",
@@ -94,13 +46,31 @@ export const sidebarElements = [
         icon: <ColorLensIcon />,
         redirect: "/colors",
       },
-      // {
-      //   id: nanoid(15),
-      //   title: "Manage Coupons",
-      //   icon: <LocalOfferIcon />,
-      //   redirect: "/coupons",
-      // },
+      {
+        id: nanoid(15),
+        title: "Manage Coupons",
+        icon: <LocalOfferIcon />,
+        redirect: "/coupons",
+      },
     ],
+  },
+  {
+    name: "Order",
+    icon: <MonetizationOnIcon />,
+    options: [
+      {
+        id: nanoid(15),
+        title: "View Orders",
+        icon: <BadgeIcon />,
+        redirect: "/orders",
+      },
+      {
+        id: nanoid(15),
+        title: "Create Order Manually",
+        icon: <AddIcon />,
+        redirect: "/orders/create",
+      },
+    ]
   },
   {
     name: "Products",
@@ -120,29 +90,4 @@ export const sidebarElements = [
       },
     ],
   },
-
-  // {
-  //   name: "Vendors",
-  //   icon: <TextSnippetIcon />,
-  //   options: [
-  //     {
-  //       id: nanoid(15),
-  //       title: "Manage Enquiries",
-  //       icon: <QuestionAnswerIcon />,
-  //       redirect: "/vendor/enquiry",
-  //     },
-  //     {
-  //       id: nanoid(15),
-  //       title: "Manage Registrations",
-  //       icon: <HowToRegIcon />,
-  //       redirect: "/vendor/registration",
-  //     },
-  //     {
-  //       id: nanoid(15),
-  //       title: "Manage Permissions",
-  //       icon: <QuestionAnswerIcon />,
-  //       redirect: "/vendor/role"
-  //     }
-  //   ],
-  // },
 ];
