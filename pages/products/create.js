@@ -353,6 +353,7 @@ export default function CreateProductPage() {
 
           const apiPayload = {
             ...variant,
+            name: formData.name,
             thumbnailImage: thumbnailImage[0],
             images,
             product,
@@ -738,12 +739,12 @@ export default function CreateProductPage() {
               >
                 {previouslyPresentColorNames.length !==
                   colorNamesBlocked.length && (
-                  <LeftSideLabel
-                    label="List in existing color"
-                    classdefault="newClass"
-                    onClick={() => variantTypeChoser("existing")}
-                  />
-                )}
+                    <LeftSideLabel
+                      label="List in existing color"
+                      classdefault="newClass"
+                      onClick={() => variantTypeChoser("existing")}
+                    />
+                  )}
                 <RightSideLabel
                   label="List in new color"
                   onClick={() => {
@@ -822,8 +823,8 @@ export default function CreateProductPage() {
               !formData.product
                 ? fullProductCreate
                 : newVariantType === "existing"
-                ? addVendorToListing
-                : createListing
+                  ? addVendorToListing
+                  : createListing
             }
             variant={"contained"}
             sx={{ mt: "1rem" }}
@@ -925,8 +926,8 @@ const VariantsData = ({
               name={"discountPercentage"}
               type={"number"}
               fullWidth
-              // disabled={true}
-              // onChange={handleFormDataChangeVariant.bind(null, index)}
+            // disabled={true}
+            // onChange={handleFormDataChangeVariant.bind(null, index)}
             />
           </Grid>
           <Grid item xs={0.2}></Grid>
@@ -943,8 +944,8 @@ const VariantsData = ({
               type={"number"}
               fullWidth
               placeholder="Base Price"
-              // disabled
-              // onChange={handleFormDataChangeVariant.bind(null, index)}
+            // disabled
+            // onChange={handleFormDataChangeVariant.bind(null, index)}
             />
           </Grid>
           <Grid item xs={5.9}>
@@ -1067,8 +1068,8 @@ const AlreadyVariantEntry = ({
               name={"discountPercentage"}
               type={"number"}
               fullWidth
-              // disabled={true}
-              // onChange={handleFormDataChangeVariant.bind(null, index)}
+            // disabled={true}
+            // onChange={handleFormDataChangeVariant.bind(null, index)}
             />
           </Grid>
           <Grid item xs={0.2}></Grid>
@@ -1085,8 +1086,8 @@ const AlreadyVariantEntry = ({
               type={"number"}
               fullWidth
               placeholder="Base Price"
-              // disabled
-              // onChange={handleFormDataChangeVariant.bind(null, index)}
+            // disabled
+            // onChange={handleFormDataChangeVariant.bind(null, index)}
             />
           </Grid>
           <Grid item xs={5.9}>

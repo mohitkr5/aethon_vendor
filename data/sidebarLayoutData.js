@@ -66,6 +66,12 @@ export const sidebarElements = [
       },
       {
         id: nanoid(15),
+        title: "View Manual Orders",
+        icon: <BadgeIcon />,
+        redirect: "/orders/manual",
+      },
+      {
+        id: nanoid(15),
         title: "Create Order Manually",
         icon: <AddIcon />,
         redirect: "/orders/create",
