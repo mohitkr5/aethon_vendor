@@ -14,3 +14,27 @@ export const getOrders = async () => {
     dispatch(orderActions.requestFail({ error: err.message }));
   }
 };
+
+
+export const getManualOrders = async () => {
+  dispatch(orderActions.requestStart());
+  try {
+    const res = await axios.get(`api/orders/manual`);
+    dispatch(orderActions.getManualOrders({ manualOrders: res.data }));
+    return res.data;
+  } catch (err) {
+    dispatch(orderActions.requestFail({ error: err.message }));
+  }
+}
+
+export const createManualOrder = async (formData) => {
+  dispatch(orderActions.requestStart());
+  try {
+    const res = await axios.post(`api/orders/manual`, formData);
+    dispatch(orderActions.createManualOrder({ manualOrder: res.data }));
+    return res.data;
+  }
+  catch (err) {
+    dispatch(orderActions.requestFail({ error: err.message }));
+  }
+}

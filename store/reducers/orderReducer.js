@@ -4,6 +4,7 @@ const orderSlice = createSlice({
   name: "order",
   initialState: {
     orders: [],
+    manualOrders: [],
     loading: null,
     error: null,
   },
@@ -14,6 +15,16 @@ const orderSlice = createSlice({
     },
     getOrders(state, action) {
       state.orders = action.payload.orders;
+      state.loading = false;
+      state.error = null;
+    },
+    getManualOrders(state, action) {
+      state.manualOrders = action.payload.manualOrders;
+      state.loading = false;
+      state.error = null;
+    },
+    createManualOrder(state, action) {
+      state.manualOrders = [...state.manualOrders, action.payload.manualOrder];
       state.loading = false;
       state.error = null;
     },

@@ -4,6 +4,7 @@ const productsSlice = createSlice({
   name: "product",
   initialState: {
     products: [],
+    variations: [],
     loading: null,
     error: {
       didOccur: null,
@@ -23,6 +24,10 @@ const productsSlice = createSlice({
     },
     LOAD_PRODUCTS(state, action) {
       state.products = action.payload.products;
+      state.loading = false;
+    },
+    LOAD_VARIATIONS(state, action) {
+      state.variations = action.payload.variations;
       state.loading = false;
     },
     CREATE_PRODUCT(state, action) {

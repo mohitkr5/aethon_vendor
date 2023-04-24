@@ -4,16 +4,19 @@ import { productsActions } from "@/store/reducers/productsReducer";
 
 const { dispatch } = store;
 
-export const getProducts = () => {
+export const getProducts = async () => {
   dispatch(productsActions.REQUEST_START());
-  axios
-    .get("/api/products")
-    .then((res) => {
-      dispatch(productsActions.LOAD_PRODUCTS({ products: res.data.products }));
-    })
-    .catch((err) => {
-      dispatch(productsActions.REQUEST_FAIL({ msg: err.message }));
-    });
+  try {
+    let res = await axios.get("/api/products");
+    dispatch(productsActions.LOAD_PRODUCTS({ products: res.data.products }));
+
+    res = await axios.get("/api/products/variation");
+    dispatch(
+      productsActions.LOAD_VARIATIONS({ variations: res.data.variations })
+    );
+  } catch (err) {
+    dispatch(productsActions.REQUEST_FAIL({ msg: err.message }));
+  }
 };
 
 export const createProduct = async (apiPayload) => {
