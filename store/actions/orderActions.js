@@ -15,6 +15,18 @@ export const getOrders = async () => {
   }
 };
 
+export const updateOrder = async (orderId, payload) => {
+  dispatch(orderActions.requestStart());
+  try {
+    const res = await axios.put(`api/orders/${orderId}`, payload);
+    dispatch(orderActions.updateOrder({ order: res.data }));
+    return res.data;
+  }
+  catch (err) {
+    dispatch(orderActions.requestFail({ error: err.message }));
+  }
+}
+
 
 export const getManualOrders = async () => {
   dispatch(orderActions.requestStart());

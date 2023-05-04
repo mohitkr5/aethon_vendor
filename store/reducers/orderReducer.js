@@ -18,6 +18,14 @@ const orderSlice = createSlice({
       state.loading = false;
       state.error = null;
     },
+    updateOrder(state, action) {
+      const orderIndex = state.orders.findIndex(
+        (order) => order._id === action.payload.order._id
+      );
+      state.orders[orderIndex] = action.payload.order;
+      state.loading = false;
+      state.error = null;
+    },
     getManualOrders(state, action) {
       state.manualOrders = action.payload.manualOrders;
       state.loading = false;
