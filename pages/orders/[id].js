@@ -55,13 +55,7 @@ export default function OrderPage() {
           Order Status: {currentOrder?.order_status}
         </Typography>
         <Typography variant={"body1"} >
-          Order Amount: ₹{currentOrder?.order_amount}
-        </Typography>
-        <Typography variant={"body1"} >
           Order Date: {currentOrder?.order_date}
-        </Typography>
-        <Typography variant={"body1"} >
-          Razorpay Order ID: {currentOrder?.razorpay_order_id}
         </Typography>
       </Grid>
       <Grid item xs={12} md={6} >
@@ -71,7 +65,6 @@ export default function OrderPage() {
         <Box sx={{ paddingInline: "1rem" }}>
           <Typography variant={"body1"} >
             {currentOrder?.address.addressLine1}, {currentOrder?.address.addressLine2},
-
           </Typography>
           <Typography variant={"body1"} >
             {currentOrder?.address.city.city}, {currentOrder?.address.state.state}
@@ -80,6 +73,26 @@ export default function OrderPage() {
             {currentOrder?.address.zip}
           </Typography>
         </Box>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Typography variant={"h6"} >
+          Payment Details
+        </Typography>
+        <Typography variant={"body1"} >
+          Payment Status: {currentOrder?.payment_status}
+        </Typography>
+        <Typography variant={"body1"} >
+          Payment Method: {currentOrder?.payment_method}
+        </Typography>
+        <Typography variant={"body1"} >
+          Razorpay Order ID: {currentOrder?.razorpay_order_id}
+        </Typography>
+        <Typography variant={"body1"} >
+          Order Amount: ₹{currentOrder?.order_amount}
+        </Typography>
+        <Typography variant={"body1"}>
+          GST Amount: ₹{currentOrder?.gst_amount}
+        </Typography>
       </Grid>
       <Grid item xs={12} md={6}>
         <Box>
@@ -92,6 +105,19 @@ export default function OrderPage() {
           <Typography variant={"body1"} >
             Customer Email: {currentOrder?.user.email}
           </Typography>
+        </Box>
+      </Grid>
+      <Grid item xs={12}>
+        <Box>
+          <Typography variant={"h6"} >
+            Products
+          </Typography>
+          {currentOrder?.products.map(product => {
+            return <Box key={product._id} sx={{ border: '1px solid black', padding: '1rem', margin: '1rem 0' }}>
+              <Typography variant="body1">Product: {product.product_variation.name}</Typography>
+              <Typography variant="body1">Quantity: {product.quantity}</Typography>
+            </Box>
+          })}
         </Box>
       </Grid>
       <Grid item xs={12} md={6}>
@@ -130,19 +156,7 @@ export default function OrderPage() {
           </FormControl>
         </Box>
       </Grid>
-      <Grid item>
-        <Box>
-          <Typography variant={"h6"} >
-            Products
-          </Typography>
-          {currentOrder?.products.map(product => {
-            return <Box key={product._id} sx={{ border: '1px solid black', padding: '1rem', margin: '1rem 0' }}>
-              <Typography variant="body1">Product: {product.product_variation.name}</Typography>
-              <Typography variant="body1">Quantity: {product.quantity}</Typography>
-            </Box>
-          })}
-        </Box>
-      </Grid>
+
     </Grid>
 
   </SidebarLayout>
