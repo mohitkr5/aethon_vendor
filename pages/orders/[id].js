@@ -79,9 +79,6 @@ export default function OrderPage() {
           Payment Details
         </Typography>
         <Typography variant={"body1"} >
-          Payment Status: {currentOrder?.payment_status}
-        </Typography>
-        <Typography variant={"body1"} >
           Payment Method: {currentOrder?.payment_method}
         </Typography>
         <Typography variant={"body1"} >
