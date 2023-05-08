@@ -4,7 +4,7 @@ export const getUserFromBackend =
   ({ dispatch }) =>
     (next) =>
       async (action) => {
-        if (action.type === "auth/LOAD_USER") {
+        if (action.type === "auth/loadUser") {
           try {
             // Here what i want to do is just get the data of the user from the backend and store that in the state.
             const res = await axios.get("api/users/me");

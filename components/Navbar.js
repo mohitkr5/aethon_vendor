@@ -2,22 +2,19 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { Button, Box, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { authActions } from "@/store/reducers/authReducer";
 import { FaRegBell } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
-import store from "@/store/store";
 import { useRouter } from "next/router";
+import { logOut } from "@/store/actions/authActions";
 
 export default function Navbar() {
   const {
-    user: { name },
+    user,
   } = useSelector((state) => state.auth);
   const router = useRouter();
-  const { dispatch } = store;
-  const { CLEAR_AUTH } = authActions;
 
   const logoutHandler = () => {
-    dispatch(CLEAR_AUTH());
+    logOut()
     router.push("/login");
   };
 
@@ -30,7 +27,7 @@ export default function Navbar() {
       <Toolbar sx={{ backgroundColor: "white" }}>
         {/* <Logo /> */}
         <Typography variant="h5" marginLeft={"22vw"}>
-          Welcome Back, {name}
+          Welcome Back, {user?.name}
         </Typography>
         <Box
           sx={{

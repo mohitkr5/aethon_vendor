@@ -3,46 +3,38 @@ import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    tokens: {
-      googleToken: null,
-      phoneAuthToken: null,
-      token: null,
-      idToken: null,
-    },
-    user: {},
-    loading: null,
-    isAuthenticated: null,
-    error: {
-      didOccur: null,
-      msg: null,
-    },
+    user: null,
+    token: null,
+    loading: true,
+    isAuthenticated: false,
+    error: null
   },
   reducers: {
-    REQUEST_START(state, action) {
+    requestStart(state, action) {
       state.loading = true;
-      state.error.didOccur = false;
-      state.error.msg = null;
+      state.error = null;
     },
-    REQUEST_FAIL(state, action) {
+    requestFail(state, action) {
       state.loading = false;
-      state.error.didOccur = true;
-      state.error.msg = action.payload.msg;
+      state.error = action.payload;
     },
-    LOAD_USER(auth, action) {
+    loadUser(auth, action) {
       auth.user = action.payload.user;
-      auth.tokens.idToken = action.payload.idToken;
+      auth.token = action.payload.idToken;
       auth.isAuthenticated = true;
       auth.loading = false;
     },
-    CLEAR_AUTH(auth, action) {
-      auth.loading = true;
-      auth.isAuthenticated = null;
-      auth.user = {};
-      auth.tokens = {
-        googleToken: null,
-        phoneAuthToken: null,
-        token: null,
-      };
+    logOut(auth, action) {
+      auth.loading = false;
+      auth.isAuthenticated = false;
+      auth.user = null;
+      auth.token = null;
+    },
+    clearAuth(auth, action) {
+      auth.loading = false;
+      auth.isAuthenticated = false;
+      auth.user = null;
+      auth.token = null;
     },
   },
 });

@@ -11,12 +11,12 @@ import { authActions } from "@/store/reducers/authReducer";
 import axios from "axios";
 const { dispatch } = store;
 
-const { REQUEST_START, REQUEST_FAIL, LOAD_USER } = authActions;
+const { requestStart, requestFail, loadUser } = authActions;
 
 export const register = async (email, password, name) => {
   const auth = getAuth();
 
-  dispatch(REQUEST_START());
+  dispatch(requestStart());
   try {
     await setPersistence(auth, browserLocalPersistence);
     const userCredential = await createUserWithEmailAndPassword(
@@ -38,16 +38,16 @@ export const register = async (email, password, name) => {
     });
     user = res.data;
 
-    dispatch(LOAD_USER({ user, idToken }));
+    dispatch(loadUser({ user, idToken }));
   } catch (err) {
-    dispatch(REQUEST_FAIL({ msg: err.message }));
+    dispatch(requestFail({ msg: err.message }));
   }
 };
 
 export const login = async (email, password) => {
   const auth = getAuth();
 
-  dispatch(REQUEST_START());
+  dispatch(requestStart());
   try {
     await setPersistence(auth, browserLocalPersistence);
     const userCredential = await signInWithEmailAndPassword(
@@ -61,23 +61,31 @@ export const login = async (email, password) => {
 
     console.log({ user });
 
-    dispatch(LOAD_USER({ user, idToken }));
+    dispatch(loadUser({ user, idToken }));
   } catch (err) {
-    dispatch(REQUEST_FAIL({ msg: err.message }));
+    dispatch(requestFail({ msg: err.message }));
   }
 };
 
 export const generatePasswordResetLink = async (email) => {
   const auth = getAuth();
 
-  dispatch(REQUEST_START());
+  dispatch(requestStart());
   try {
     sendPasswordResetEmail(auth, email);
   } catch (err) {
-    dispatch(REQUEST_FAIL({ msg: err.message }));
+    dispatch(requestFail({ msg: err.message }));
   }
 };
 
-export const loadUser = async (user, idToken) => {
-  dispatch(LOAD_USER({ user, idToken }));
+export const loadAppUser = async (user, idToken) => {
+  if (!user || !idToken) dispatch(requestFail("Not Logged In."));
+  else dispatch(loadUser({ user, idToken }));
 };
+
+export const logOut = async () => {
+  const auth = getAuth();
+  await auth.signOut();
+  localStorage.removeItem("token");
+  dispatch(authActions.logOut());
+}

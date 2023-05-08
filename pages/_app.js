@@ -8,7 +8,7 @@ import { firebaseConfig } from "../firebase/firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { loadUser } from "@/store/actions/authActions";
+import { loadAppUser } from "@/store/actions/authActions";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme";
 import { useEffect } from "react";
@@ -29,16 +29,18 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     const loadPersistentUser = async () => {
+      let idToken = null
       if (user) {
-        const idToken = await auth.currentUser.getIdToken();
-
-        await loadUser(user, idToken);
+        idToken = await auth.currentUser.getIdToken();
+        await loadAppUser(user, idToken);
       }
     };
-    loadPersistentUser();
+
+    if (!loading)
+      loadPersistentUser();
   }, [user]);
 
-  if (loading) return <Loading text={"Loading application."} />;
+  // if (loading) return <Loading text={"Loading application."} />;
   return (
     <Provider store={store}>
       <Toaster />

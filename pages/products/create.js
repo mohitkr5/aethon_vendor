@@ -82,7 +82,7 @@ export default function CreateProductPage() {
   const { sizes } = useSelector((state) => state.size);
   const { colors } = useSelector((state) => state.color);
   const {
-    user: { _id },
+    user,
   } = useSelector((state) => state.auth);
 
   // const { name, description, mrp, price, category } = formData;
@@ -139,7 +139,7 @@ export default function CreateProductPage() {
   ///Color variants which are already submitted by the signed in vendor///
   const blockedVariants = previousVariations.filter((variant) => {
     const vendors = variant.vendors.map((el) => el.vendor);
-    if (vendors.includes(_id)) {
+    if (vendors.includes(user?._id)) {
       return true;
     } else {
       return falseß;

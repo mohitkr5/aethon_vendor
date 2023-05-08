@@ -38,7 +38,7 @@ export default function LoginPage() {
       <Box
         sx={{
           padding: "3rem",
-          width: "600px",
+          width: "550px",
           border: "1px solid #e9e9e9",
           display: "flex",
           justifyContent: "center",
@@ -47,7 +47,7 @@ export default function LoginPage() {
         }}
       >
         <Typography variant={"h3"} color={"primary"} textAlign={"center"}>
-          Login as a vendor
+          Login
         </Typography>
         <TextField
           label={"Enter Email"}
