@@ -15,6 +15,29 @@ export const getOrders = async () => {
   }
 };
 
+export const getPendingOrders = async () => {
+  dispatch(orderActions.requestStart());
+  try {
+    const res = await axios.get(`api/orders?order_status=pending`);
+    dispatch(orderActions.getOrders({ orders: res.data }));
+    return res.data;
+  } catch (err) {
+    dispatch(orderActions.requestFail({ error: err.message }));
+  }
+}
+
+export const getConfirmedOrders = async () => {
+  dispatch(orderActions.requestStart());
+  try {
+    const res = await axios.get(`api/orders?order_status=confirmed`);
+    dispatch(orderActions.getOrders({ orders: res.data }));
+    return res.data;
+  } catch (err) {
+    dispatch(orderActions.requestFail({ error: err.message }));
+  }
+
+}
+
 export const updateOrder = async (orderId, payload) => {
   dispatch(orderActions.requestStart());
   try {
@@ -26,6 +49,7 @@ export const updateOrder = async (orderId, payload) => {
     dispatch(orderActions.requestFail({ error: err.message }));
   }
 }
+
 
 
 export const getManualOrders = async () => {

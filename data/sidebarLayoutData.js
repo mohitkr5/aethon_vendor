@@ -60,9 +60,21 @@ export const sidebarElements = [
     options: [
       {
         id: nanoid(15),
-        title: "View Orders",
+        title: "All Orders",
         icon: <BadgeIcon />,
         redirect: "/orders",
+      },
+      {
+        id: nanoid(15),
+        title: "Pending",
+        icon: <BadgeIcon />,
+        redirect: "/orders/pending",
+      },
+      {
+        id: nanoid(15),
+        title: "Confirmed",
+        icon: <BadgeIcon />,
+        redirect: "/orders/confirmed",
       },
       {
         id: nanoid(15),

@@ -10,6 +10,7 @@ export default function OrderPage() {
   const { orders, loading } = useSelector(state => state.order)
   const router = useRouter()
   const currentOrder = orders.find(order => order._id === router.query.id)
+  const [currentlyDispatching, setCurrentlyDispatching] = useState(false)
 
   const [formData, setFormData] = useState({
     order_status: currentOrder?.order_status || "",
@@ -20,14 +21,25 @@ export default function OrderPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault()
-    // If both fields are default then dont send request
-    if (formData.order_status === currentOrder.order_status && formData.delivery_date === "") {
-      return
-    }
+  const handleOrderConfirm = () => {
+    updateOrder(currentOrder._id, { order_status: "confirmed" })
+  }
 
-    updateOrder(currentOrder._id, formData)
+  const handleDispatchStart = () => {
+    setCurrentlyDispatching(true)
+  }
+
+  const cancelDispatch = () => {
+    setCurrentlyDispatching(false)
+  }
+
+  const handleDispatch = () => {
+    updateOrder(currentOrder._id, { order_status: "dispatched", delivery_date: formData.delivery_date })
+    setCurrentlyDispatching(false)
+  }
+
+  const handleOrderDelivered = () => {
+    updateOrder(currentOrder._id, { order_status: "delivered" })
   }
 
 
@@ -37,8 +49,6 @@ export default function OrderPage() {
     }
   }, [isAuthenticated])
 
-
-  console.log(currentOrder)
 
 
   return <SidebarLayout pageTitle={"Order"}>
@@ -118,42 +128,33 @@ export default function OrderPage() {
         </Box>
       </Grid>
       <Grid item xs={12} md={6}>
-        <Box>
+        <Box sx={{ display: "flex", flexFlow: "column", gap: '1rem' }}>
+          {currentOrder?.order_status === "pending" && <Button variant='contained' onClick={handleOrderConfirm}> Confirm Order </Button>}
+          {currentOrder?.order_status === "confirmed" && <Button variant='contained' onClick={currentlyDispatching ? cancelDispatch : handleDispatchStart}> {currentlyDispatching ? "Cancel" : "Dispatch Order"} </Button>}
+          {currentlyDispatching &&
+            <FormControl fullWidth sx={{ display: "flex", flexFlow: "column", gap: "1rem" }}>
+              <Typography>
+                Enter an estimated delivery date. This will be sent to the customer.
+              </Typography>
+              <TextField
+                name="delivery_date"
+                placeholder="Delivery Date"
+                labelId='delivery-select-label'
+                value={formData.delivery_date}
+                onChange={handleFormDataChange}
+                type="date" />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleDispatch}
+              >Dispatch</Button>
+            </FormControl>}
+          {currentOrder?.order_status === "dispatched" && <Button variant='contained' onClick={handleOrderDelivered}> Mark Order As Delivered </Button>}
           <Typography variant={"h6"} >
-            Update
+            {currentOrder?.order_status === "delivered" && "Order Delivered, You can no longer make changes to this order."}
           </Typography>
-          <FormControl fullWidth sx={{ display: "flex", flexFlow: "column", gap: "1rem" }}>
-            <InputLabel id="status-select-label">Order Status</InputLabel>
-            <Select
-              name={"order_status"}
-              value={formData.order_status}
-              onChange={handleFormDataChange}
-              labelId="status-select-label"
-            >
-              <MenuItem value={"pending"}>Pending</MenuItem>
-              <MenuItem value={"dispatched"}>Dispatched</MenuItem>
-              <MenuItem value={"delivered"}>Delivered</MenuItem>
-              <MenuItem value={"cancelled"}>Cancelled</MenuItem>
-            </Select>
-            <Typography>
-              Delivery Date
-            </Typography>
-            <TextField
-              name="delivery_date"
-              placeholder="Delivery Date"
-              labelId='delivery-select-label'
-              value={formData.delivery_date}
-              onChange={handleFormDataChange}
-              type="date" />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleFormSubmit}
-            >Update</Button>
-          </FormControl>
         </Box>
       </Grid>
-
     </Grid>
 
   </SidebarLayout>
